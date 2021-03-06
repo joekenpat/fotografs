@@ -1,0 +1,199 @@
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+.thumb {
+  height: 13vh;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.show-uploader-btn {
+  position: fixed;
+  background-color: #cdcdcd;
+  height: 45px;
+  width: 45px;
+  font-weight: bold;
+  font-size: 40px;
+  color: #0d0d0d;
+  text-align: center;
+  right: 0;
+  bottom:0;
+  border-top-left-radius: 25px;
+}
+/* Hide the images by default */
+.mySlidesContainer {
+  width: 100%;
+  max-height: 61vh;
+  display: block;
+  overflow: auto;
+}
+
+/* Hide the images by default */
+.mySlidesInactive {
+  display: none;
+}
+
+/* Hide the images by default */
+.mySlidesActive {
+  display: block;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 28vh;
+  width: auto;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #323232;
+  background-color: rgba(227, 227, 227, 0.796);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 15px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) {
+  .column {
+    width: 12.5%;
+  }
+  .thumb {
+    height: 15vh;
+  }
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .column {
+    width: 16.6667%;
+  }
+  .thumb {
+    height: 15vh;
+  }
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .column {
+    width: 20%;
+  }
+  .thumb {
+    height: 15vh;
+  }
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .column {
+    width: 25%;
+  }
+  .thumb {
+    height: 15vh;
+  }
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .column {
+    width: 33.3333%;
+  }
+  .thumb {
+    height: 15vh;
+  }
+}
