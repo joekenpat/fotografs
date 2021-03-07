@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container">
       <div @click="formShow = !formShow" class="show-uploader-btn">
-        {{formShow?"x":"+"}}
+        {{ formShow ? "x" : "+" }}
       </div>
       <UploadForm v-on:close-form="onCloseForm" v-show="formShow" />
       <div
@@ -79,6 +79,9 @@
             :path="fbImageThumb.imageUrl"
             style="width:100%"
             :alt="fbImageThumb.brandName"
+            loading="lazy"
+            :lqip="{ active: true }"
+            :transformation="[{ width: 150, height: 100 }]"
           />
         </div>
       </div>
