@@ -13,6 +13,7 @@
         <div>
           <input
             v-model="authorInitial"
+            name=""
             type="text"
             maxlength="3"
             minlength="3"
@@ -57,7 +58,7 @@
             @click.prevent="uploadImage()"
             class="upload_btn"
           >
-            Upload
+            Upload{{ loading ? `ing...(${uploadValue.toFixed(2)}%)` : "" }}
           </button>
           <button type="cancel" @click.prevent="closeForm" class="cancel_btn">
             Cancel!
@@ -85,6 +86,11 @@ export default {
     };
   },
   methods: {
+    resetForm() {
+      this.authorName = this.authorInitial = this.brandColor = this.imageDataUrl =
+        "";
+      this.imageData = null;
+    },
     validateForm() {
       let {
         authorName,
@@ -124,8 +130,9 @@ export default {
       var ext = /^.+\.([^.]+)$/.exec(filename);
       return ext == null ? "" : ext[1];
     },
-    uploadImage() {
+    async uploadImage() {
       this.loading = true;
+      this.uploadValue = 0;
       let img = this.imageData;
       let uploadTask = fb.storage
         .ref(
@@ -139,12 +146,10 @@ export default {
         (snapshot) => {
           this.uploadValue =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log({
-            uploading: (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
-          });
         },
         (error) => {
           console.log(error.message);
+          this.loading = false;
         },
         () => {
           this.uploadValue = 100;
@@ -159,14 +164,14 @@ export default {
             };
             fb.imageCollection.add({ ...data }).then((doc) => {
               console.log(doc.id);
-              this.authorName = this.authorInitial = this.brandColor = this.imageDataUrl =
-                "";
-              this.imageData = null;
+              this.loading = false;
+              setTimeout(() => {
+                this.$emit("close-form");
+              }, 2000);
             });
           });
         }
       );
-      this.loading = false;
     },
   },
 };
