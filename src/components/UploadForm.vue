@@ -30,11 +30,11 @@
             @change="inputToState"
             ref="imgx"
             type="file"
-            accept="png,jpg,jpeg"
+            accept=".png, .jpg, .jpeg"
             class="inputs imageInput"
           />
         </div>
-        <div v-show="imageDataUrl" class="imagePreview">
+        <div v-show="imageDataUrl" class="inputs imagePreview">
           <img :src="imageDataUrl" />
         </div>
         <div>
