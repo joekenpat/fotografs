@@ -80,7 +80,6 @@ export default {
       brandFont: "choice",
       imageData: null,
       imageDataUrl: "",
-      picture: null,
       uploadValue: 0,
       loading: false,
     };
@@ -130,7 +129,7 @@ export default {
       var ext = /^.+\.([^.]+)$/.exec(filename);
       return ext == null ? "" : ext[1];
     },
-    async uploadImage() {
+    uploadImage() {
       this.loading = true;
       this.uploadValue = 0;
       let img = this.imageData;
@@ -166,6 +165,7 @@ export default {
               console.log(doc.id);
               this.loading = false;
               setTimeout(() => {
+                this.resetForm();
                 this.$emit("close-form");
               }, 2000);
             });

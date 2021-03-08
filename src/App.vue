@@ -99,7 +99,6 @@ export default {
       resImageWidth: window.innerWidth,
       slideIndex: 0,
       formShow: false,
-      uploadingImage: false,
       gallery_images: [],
     };
   },
