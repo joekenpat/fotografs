@@ -1,6 +1,8 @@
+//import firebase module
 import firebase from "firebase";
-import 'firebase/firestore'
+import "firebase/firestore";
 
+//firebase config data object
 const config = {
   apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   authDomain: "XXXXXXXXXXXX.firebaseapp.com",
@@ -11,8 +13,12 @@ const config = {
   appId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 };
 
+//initialize firebase with configuration
 firebase.initializeApp(config);
 
+//instantiate firebase firestore
 export const db = firebase.firestore();
+//instantiate firebase storage
 export const storage = firebase.storage();
+//instantiate firebase firestore fotografs collection
 export const imageCollection = db.collection("fotografs");

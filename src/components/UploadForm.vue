@@ -70,6 +70,7 @@
 </template>
 
 <script>
+//import out instantiated firebase module
 const fb = require("../firebaseConfig");
 export default {
   data() {
@@ -85,11 +86,13 @@ export default {
     };
   },
   methods: {
+    //reset the form to empty
     resetForm() {
       this.authorName = this.authorInitial = this.brandColor = this.imageDataUrl =
         "";
       this.imageData = null;
     },
+    //check if all required field is filled
     validateForm() {
       let {
         authorName,
@@ -98,22 +101,22 @@ export default {
         brandFont,
         imageData,
       } = this;
-      console.log(
-        authorName && brandColor && authorInitial && brandFont && imageData
-      );
       return authorName && brandColor && authorInitial && brandFont && imageData
         ? false
         : true;
     },
+    //emit this event to trigger the close form
     closeForm() {
       this.$emit("close-form");
     },
+    //set the current font face for previewing
     setCurrentFont() {
       return {
         fontFamily: this.brandFont,
         color: this.brandColor,
       };
     },
+    //save selected images to state
     inputToState(x) {
       let files = x.target.files || x.dataTransfer.files;
       this.imageData = files[0];
@@ -125,10 +128,12 @@ export default {
       console.log(this.imageData);
       console.log(this.imageDataUrl);
     },
+    //get extension from filename
     getFileExtension(filename) {
       var ext = /^.+\.([^.]+)$/.exec(filename);
       return ext == null ? "" : ext[1];
     },
+    //upload the selected image and branding data to firebase
     uploadImage() {
       this.loading = true;
       this.uploadValue = 0;
@@ -152,6 +157,7 @@ export default {
         },
         () => {
           this.uploadValue = 100;
+          //get url of uploaded file
           uploadTask.snapshot.ref.getDownloadURL().then((url) => {
             console.log({ img_url: url });
             let data = {
@@ -161,6 +167,7 @@ export default {
               brandColor: this.brandColor,
               imageUrl: url,
             };
+            //add the branding data for the image
             fb.imageCollection.add({ ...data }).then((doc) => {
               console.log(doc.id);
               this.loading = false;

@@ -4,7 +4,7 @@
       <div @click="formShow = !formShow" class="show-uploader-btn">
         {{ formShow ? "x" : "+" }}
       </div>
-      <UploadForm v-on:close-form="onCloseForm" v-show="formShow" />
+      <UploadForm ref="ufr" v-on:close-form="onCloseForm" v-show="formShow" />
       <div
         v-show="Object.keys(gallery_images).length > 0"
         :class="[
@@ -21,20 +21,33 @@
           :lqip="{ active: true }"
           :transformation="[
             {
+              //height of the image
               width: resImageWidth,
+              //widthu of the image
               height: resImageHeight,
             },
             {
+              //add overlay text
               ot: titleCase(fbImage.authorName),
+              //specify the font sizr
               ots: 24,
+              //specify the position along the X-axis
               overlayX: 5,
+              //specify the position along the Y-axis
               overlayY: 'N15',
+              //set a predefined the width
               otw: 250,
+              //set a predefined the height
               oth: 50,
+              //apply a border radius
               or: '26',
+              //set the text font face
               otf: fbImage.brandFont + '.ttf',
+              //specify the alignment of the text
               otia: 'left',
+              //set the color of the font
               otc: fbImage.brandColor.substring(1).toUpperCase(),
+              //specify the padding size in all directions
               otp: '1_25_1_55',
             },
             {
@@ -90,7 +103,9 @@
 </template>
 
 <script>
+//import our component for uploading images
 import UploadForm from "./components/UploadForm";
+//import out instantiated firebase module
 const fb = require("./firebaseConfig");
 export default {
   data() {
@@ -103,16 +118,19 @@ export default {
     };
   },
   created() {
+    //load the images when the component is created
     this.loadImages();
   },
   components: {
     UploadForm,
   },
   methods: {
+    //closes the upload form
     onCloseForm() {
       this.loadImages();
       this.formShow = false;
     },
+    //transform string to Title Case
     titleCase(str) {
       return str
         .toLowerCase()
@@ -122,6 +140,7 @@ export default {
         })
         .join(" ");
     },
+    //controller to view previous image slide
     prevSlide() {
       if (this.slideIndex - 1 < 0) {
         this.slideIndex = this.gallery_images.length - 1;
@@ -129,6 +148,7 @@ export default {
         this.slideIndex -= 1;
       }
     },
+    //controller to view next image slide
     nextSlide() {
       if (this.slideIndex + 1 > this.gallery_images.length - 1) {
         this.slideIndex = 0;
@@ -136,21 +156,25 @@ export default {
         this.slideIndex += 1;
       }
     },
+    //controller to view a specific image slide
     setCurrentSlide(n) {
       this.slideIndex = n;
     },
+    //load the links to the uploaded images from firebase firestore
     loadImages() {
       fb.imageCollection.onSnapshot((querySnapshot) => {
         this.gallery_images = [];
         querySnapshot.forEach((doc) => {
           let dtx = doc.data();
           let urlx = new URL(dtx.imageUrl);
+          //push the results to local state
           this.gallery_images.push({
             id: doc.id,
             authorName: dtx.authorName,
             authorInitial: dtx.authorInitial,
             brandColor: dtx.brandColor,
             brandFont: dtx.brandFont,
+            //strip away the domain from the url
             imageUrl: urlx.pathname + urlx.search + urlx.hash,
           });
         });
@@ -159,4 +183,6 @@ export default {
   },
 };
 </script>
-<style src="@/styles/App.css"></style>
+<style src="@/styles/App.css">
+/* import an external css file */
+</style>
