@@ -2,6 +2,27 @@
   "name": "fotografs",
   "version": "0.1.4",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joekenpat/fotografs.git"
+  },
+  "description": "Gallery app to utilize Imagekit service, in image branding",
+  "keywords": [
+    "vue",
+    "vuejs",
+    "ImageKit",
+    "Firebase",
+    "vue2",
+    "gallery",
+    "images",
+    "image-branding"
+  ],
+  "author": "joekenpat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joekempat/fotografs/issues"
+  },
+  "homepage": "https://github.com/joekempat/fotografs#readme",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
